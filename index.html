@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawFactory — AI Employees for Every Business</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --text: #e8e8ed;
+      --muted: #8888a0;
+      --accent: #6c5ce7;
+      --accent2: #a78bfa;
+      --glow: rgba(108, 92, 231, 0.15);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--accent2);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease-out 0.1s both;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 0 30px rgba(108, 92, 231, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #7c6df7;
+      box-shadow: 0 0 50px rgba(108, 92, 231, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--glow);
+    }
+
+    /* What you get */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section > p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px var(--glow);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* How it works */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 2rem;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: block;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.3;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      color: var(--accent2);
+      font-size: 1.2rem;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--accent);
+      margin-top: 1rem;
+    }
+
+    .contact-email:hover {
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .section { padding: 4rem 1.5rem; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><span>Claw</span>Factory</div>
+    <a href="#contact">Get Started</a>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">🏭 AI Employees, Built &amp; Deployed for You</div>
+    <h1>Your business deserves an <span class="highlight">AI employee</span> that actually works</h1>
+    <p>We build, deploy, and integrate autonomous AI agents for SMBs, solopreneurs, and one-person companies. Your AI comes ready with its own phone number, email, and the tools to get real work done.</p>
+    <div class="cta-group">
+      <a href="#contact" class="btn btn-primary">Get Your AI Employee</a>
+      <a href="#how" class="btn btn-secondary">How It Works</a>
+    </div>
+  </section>
+
+  <section class="section" id="what">
+    <div class="section-label">What You Get</div>
+    <h2>An AI employee, ready on day one</h2>
+    <p>No setup headaches. No prompt engineering. We hand you a fully operational AI agent built for your business.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Own Phone Number</h3>
+        <p>Your AI gets a dedicated number for SMS and calls. Customers text it, it responds. You call it, it picks up.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📧</div>
+        <h3>Own Email Address</h3>
+        <p>A working Gmail that reads, replies, and manages threads. Draft approvals or full autonomy — your choice.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Slack, WhatsApp &amp; More</h3>
+        <p>Connects to the platforms you already use. Chat with your AI like a teammate — because it is one.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <h3>Custom Integrations</h3>
+        <p>We forward-deploy and work alongside you to connect your AI with your existing tools, CRMs, and workflows.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Memory &amp; Context</h3>
+        <p>Your AI remembers conversations, preferences, and decisions. It gets smarter about your business over time.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>Security-First</h3>
+        <p>Runs on isolated infrastructure with burner accounts. Your data stays yours. No shared tenancy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="section-label">How It Works</div>
+    <h2>Three steps to your AI employee</h2>
+    <p>From first call to working agent in days, not months.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Discovery Call</h3>
+        <p>We learn about your business, workflows, and what you need automated. No jargon, no slides — just a conversation.</p>
+      </div>
+      <div class="step">
+        <h3>Build &amp; Deploy</h3>
+        <p>We spin up your AI agent with its own phone number, email, and channel access. Configured for your specific use case.</p>
+      </div>
+      <div class="step">
+        <h3>Integrate &amp; Iterate</h3>
+        <p>We work hands-on with you to connect your tools and platforms. We stay engaged until your AI employee is running autonomously.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Who It's For</div>
+    <h2>Built for the lean and ambitious</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h3>One-Person Companies</h3>
+        <p>You wear every hat. Your AI handles email, scheduling, research, and customer responses so you can focus on what matters.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏪</div>
+        <h3>Small &amp; Medium Businesses</h3>
+        <p>Staff augmentation without the hiring process. An AI that handles support, operations, and admin around the clock.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👤</div>
+        <h3>Personal Assistants</h3>
+        <p>Your own AI that knows your preferences, manages your inbox, tracks your tasks, and keeps you organized.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact">
+    <h2>Ready to hire your AI?</h2>
+    <p>Let's talk about what your AI employee could do for you.</p>
+    <a href="mailto:hu.niel92@gmail.com" class="btn btn-primary">Get in Touch</a>
+    <br>
+    <a href="mailto:hu.niel92@gmail.com" class="contact-email">hu.niel92@gmail.com</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 ClawFactory. AI employees, built for humans.</p>
+  </footer>
+
+</body>
+</html>
